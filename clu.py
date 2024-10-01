@@ -48,12 +48,32 @@ def main():
         print("Usage: python clu.py <query_string>")
         sys.exit(1)
 
+    whoami = os.getlogin()
+
     index = build_index()
-    query_engine = index.as_query_engine()
-    query_string = " ".join(sys.argv[1:])
-    print(f"Query: {query_string}")
-    response = query_engine.query(query_string)
-    print(response)
+    if len(sys.argv) == 1 or sys.argv[1] == "--chat":
+        chat_engine = index.as_chat_engine()
+        # in a continuous loop, gather a prompt and generate a response
+        while True:
+            if len(sys.argv) > 2:
+                prompt = " ".join(sys.argv[2:])
+                sys.argv = sys.argv[:1]
+                print(f"{whoami}: {prompt}")
+            else:
+                prompt = input(f"{whoami}: ")
+            if prompt == "exit":
+                break
+            streaming_response = chat_engine.stream_chat(prompt)
+            print("clu: ", end="")
+            for token in streaming_response.response_gen:
+                print(token, end="")
+            print()
+    else:
+        query_engine = index.as_query_engine()
+        query_string = " ".join(sys.argv[1:])
+        print(f"Query: {query_string}")
+        response = query_engine.query(query_string)
+        print(response)
 
 if __name__ == '__main__':
     main()
