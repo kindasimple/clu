@@ -51,3 +51,39 @@ Console output
     Loaded 28 documents
     Query: how can I build the clu vector database index and run a query
     Run the script using uv, specifically the command `uv run clu.py "how can I build the clu a notes index and run a query"`. This will execute the necessary steps to build the CLU vector database index and then run the query.
+
+Start a chat
+
+    uv run clu.py --chat give me a curl command
+
+    clu:  The curl command is used to retrieve a list of dogs from the Petfinder API, specifically the second page of results with 20 animals per page.
+    sources: /clu/notes/2023/04/23.md, /clu/notes/2023/04/27.md, /clu/notes/2020/03/09.md
+
+    root$ :share
+    Saved to:  /clu/share/a0e04b0f46c1478681bccb55af2fa227.txt
+
+    head /clu/share/a0e04b0f46c1478681bccb55af2fa227.txt
+    prompt: give me a curl command
+    response:  The curl command is used to retrieve a list of dogs from the Petfinder API, specifically the second page of results with 20 animals per page.
+
+    root$ :share
+    Saving to:  /clu/chats/4ecb201b4d0b45be9d1f5e02c6117a1a.json
+
+Add script aliases `chat` and `clu` to `~/.bashrc`
+
+        # ~/.bashrc
+        CLU_HOME=$HOME/Code/clu
+        function chat() {
+            uv run --project $CLU_HOME clu.py --chat --citation "$@"
+        }
+
+        function clu() {
+            uv run --project $CLU_HOME $HOME/Code/clu/clu.py --citation "$@"
+        }
+
+Use the `chat` and `clu` aliases to run the chat and clu scripts
+
+    chat give me a curl command
+
+    clu:  The curl command is used to retrieve a list of dogs from the Petfinder API, specifically the second page of results with 20 animals per page.
+    sources: /clu/notes/2023/04/23.md, /clu/notes/2023/04/27.md, /clu/notes/2020/03/09.md
