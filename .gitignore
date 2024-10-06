@@ -2,5 +2,7 @@ notes/
 store/
 chats/
 share/
+data/
+models/
 settings.json
-*/todo.txt
+**/todo.txt

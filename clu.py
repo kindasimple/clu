@@ -24,7 +24,7 @@ from llama_index.llms.ollama import Ollama
 
 
 CONFIG_PATH = os.path.join(os.path.dirname(__file__), "settings.json")
-INPUT_PATH = os.path.join(os.path.dirname(__file__), "notes")
+DATA_PATH = os.path.join(os.path.dirname(__file__), "data")
 STORE_PATH = os.path.join(os.path.dirname(__file__), "store")
 CHATS_PATH = os.path.join(os.path.dirname(__file__), "chats")
 SHARE_PATH = os.path.join(os.path.dirname(__file__), "share")
@@ -41,7 +41,7 @@ chat_context: list[dict[str, str]] = []
 CONFIG_DEFAULTS = {
     "model": "llama3",
     "agent_name": "clu",
-    "input_path": os.path.join(os.path.dirname(__file__), "notes"),
+    "data_path": os.path.join(os.path.dirname(__file__), "data"),
     "store_path": os.path.join(os.path.dirname(__file__), "store"),
     "chats_path": os.path.join(os.path.dirname(__file__), "chats"),
     "share_path": os.path.join(os.path.dirname(__file__), "share"),
@@ -68,8 +68,8 @@ def build_index(model: str = None):
 
     if index is None:
         documents = SimpleDirectoryReader(
-            input_dir=INPUT_PATH,
-            required_exts=[".md"],
+            input_dir=DATA_PATH,
+            required_exts=[".md", ".txt"],
             recursive=True,
         ).load_data()
         print(f"Loaded {len(documents)} documents")
@@ -187,7 +187,9 @@ def main():
                 response.append(token)
                 print(token, end="")
             print()
-            sources = {node.metadata["file_path"] for node in streaming_response.source_nodes}
+            sources = {
+                node.metadata["file_path"] for node in streaming_response.source_nodes
+            }
             chat_context.append(
                 {
                     "prompt": prompt,

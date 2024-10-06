@@ -23,7 +23,6 @@ Console output
     ## Notes
 
     ```sh
-    rm -rf store
     ./scan.sh
     ```
 
@@ -36,8 +35,6 @@ Console output
 
 Preprocess the Journal dev log
 
-
-    rm -rf store
     ./scan.sh
 
 
@@ -83,7 +80,9 @@ Add script aliases `chat` and `clu` to `~/.bashrc`
 
 Use the `chat` and `clu` aliases to run the chat and clu scripts
 
-    chat give me a curl command
-
-    clu:  The curl command is used to retrieve a list of dogs from the Petfinder API, specifically the second page of results with 20 animals per page.
-    sources: /clu/notes/2023/04/23.md, /clu/notes/2023/04/27.md, /clu/notes/2020/03/09.md
+    # chat what did I do in september
+    Reading inline script metadata from: clu.py
+    Loaded 172 documents
+    root$ what did I do in september
+    clu:  It seems that in September, I was actively experimenting with different neural network architectures and optimization methods to improve their performance. This might have been a productive month for me in terms of learning and personal development!
+    sources: /clu/data/obsidian/notes/main/Learning/pytorch/Review/0.1 Neural Networks.md, /clu/data/obsidian/notes/main/Latest/2024-04/2024-04-28.md, /clu/data/obsidian/notes/main/Latest/2024-03/2024-03-01.md, /clu/data/obsidian/notes/main/Latest/Daily Plan.md, /clu/data/obsidian/notes/main/Latest/2024-03/2024-03-13.md, /clu/data/obsidian/notes/main/Learning/pytorch/Review/0.2 CNN.md
