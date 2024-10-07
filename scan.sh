@@ -1,5 +1,17 @@
 #!/bin/bash
 
+# download README files from repos
+readme=(
+    https://raw.githubusercontent.com/kindasimple/clu/refs/heads/main/README.md
+    https://raw.githubusercontent.com/ollama/ollama/refs/heads/main/README.md
+    https://raw.githubusercontent.com/meta-llama/llama/refs/heads/main/README.md
+)
+for url in "${readme[@]}"; do
+    mkdir -p ./data/repos/$(dirname $(echo "$url" | sed -e 's|^[^:]*://[^/]*/||'))
+    curl -s $url > ./data/repos/$(echo "$url" | sed -e 's|^[^:]*://[^/]*/||')
+done
+
+
 # scan the ~/Journal directory recursively for all .md files
 # and find the text string "## Notes" in each file. Recreate
 # the file structure in a local directory where each file
